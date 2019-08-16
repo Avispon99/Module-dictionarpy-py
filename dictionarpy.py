@@ -2,8 +2,8 @@ import re
 
 def no_repeat(word,path_doc):
 	repeat = False
-	global open_file # Es un miesterio por que no es necesario usar 'Dict' en open_file... no se sabe si 'global' es la causa.. O tal vez no la reconoce como miembro de Dict pero no afecta.. 
-	open_file = open(path_doc, 'r') # respecto al mieterio 'Dict' aqui por ejemplo contaria como una inicializacion de un open_file aparte
+	global open_file  
+	open_file = open(path_doc, 'r') 
 	read_fr = open_file.read()
 	if re.search(word, read_fr):
 		repeat = True         
@@ -14,39 +14,39 @@ def alfabet_file(path_doc, recv_abc= False):
 	print('\nOrdenando Alfabeticamente\n')
 	if recv_abc==True:
 		print('entro')
-		global open_file # Global No se puede usar por que por alguna razon al abrir documento desde la variable original en lugar de hacerlo desde una nueva provoca que no se pueda escribir.
+		global open_file 
 		open_file = open(path_doc, 'r')
 	else: 
 		open_file = open(path_doc, 'r')
-	f_read = open_file.read() # Guardando el contenido total del documento (back up)
+	f_read = open_file.read() 
 	print('lect:',f_read)
-	open_file = open(path_doc, 'w') # Reiniciando el documento de escritura en blanco usando formato write 'w'
-	list_rows = f_read.splitlines() #  convertir renglones en elementos de lista
+	open_file = open(path_doc, 'w') 
+	list_rows = f_read.splitlines() 
 	print('\nROWS:',list_rows)
 	for i in Dict.alfabet:
 		for j in list_rows: 
-			if re.findall('^'+i, j): # Usando regular expresion en lugar de startswith por variar
+			if re.findall('^'+i, j): 
 				print(':',j)
 				open_file.write(j+'\n')
-	open_file.close() # importante cerrar documento para que no se produzcan conflictos. Nota: Esta era la razon -_-
+	open_file.close() 
 
-def write_file(path_doc, abc, n_rep): # Añadiendo el nuevo contenido del dicc
+def write_file(path_doc, abc, n_rep): 
 	if n_rep == False:
 		open_file = open(path_doc, 'r+')
-	for i in Dict.alfabet: # Como la variable de clase('alfabet') se llama en una funcion fuera de la clase entonces se llama "nombre de la clase.variable" y No "self.variable"
+	for i in Dict.alfabet: 
 		list_keys = Dict.dicc.keys()
-		for j in list_keys: # j nunca llega a asignarse por que list_keys esta vacio y no hay que asignar.. debido a funcion emptyVars >> borrar
+		for j in list_keys: 
 			if j.startswith(i):
-				open_file.read() # esto se requiere para que la nueva escritura se anexe al final podiendo usar formaro "r+"
+				open_file.read() 
 				print('dicc:',Dict.dicc[j])
-				open_file.write(Dict.dicc[j]+"\n") # Escribe el valor señalando la key del diccionario
+				open_file.write(Dict.dicc[j]+"\n") 
 	if abc==True: 
-		alfabet_file(path_doc,recv_abc=abc) # Se debe entregar la escritura del contenido total del archivo ordenado alfabeticamente.	
+		alfabet_file(path_doc,recv_abc=abc) 	
 	return Dict.dicc[j]
 
 def emptyVars():
 	Dict.dicc = {} 
-	#test.count = 0  # count(self.count) le pertenece a la instancia y No a la clase por eso se llama con 'test.' . Aplica para todos los metodos, No solo para el metodo __init__
+	#test.count = 0  
 	return 0
 
 
@@ -59,13 +59,13 @@ class Dict:
 			'L','l','M','m','N','n','Ñ','ñ','O','o','P','p','Q','q','R','r','S','s','T','t','U','u','V','v', 
 			'W','w','X','x','Y','y','Z','z','0','1','2','3','4','5','6','7','8','9	')
 	"""
-	def __new__(cls): # Verificacion de lectura y anexo o creacion del archivo.
+	def __new__(cls): 
 		while True:
 			try:	#PENDIENTE POR OPTIMIZAR
-				cls.open_file = open(r'docu\base_eng.txt', 'r+') # Se usa formato 'r+' y no 'a' ya que 'a' permite anexar pero no leer.
+				cls.open_file = open(r'docu\base_eng.txt', 'r+') 
 				break
 			except Exception as e:
-				cls.open_file = open(r'docu\base_eng.txt', 'w') # En el metodo '__new__', 'self' se remplaza por 'cls' pero fuera de '__new__' se puede volver a usar 'self', tambien se puede remplazar con nombre de clase ('Dict')
+				cls.open_file = open(r'docu\base_eng.txt', 'w') 
 				print('A file was created because the error was presented: ', e)
 		return super().__new__(cls) """		
 
@@ -76,11 +76,11 @@ class Dict:
 		self.count = 0
 		f_read = None  # opcional
 		while True:
-			try:	#PENDIENTE POR OPTIMIZAR
-				Dict.open_file = open(path_doc, 'r+') # Se usa formato 'r+' y no 'a' ya que 'a' permite anexar pero no leer.
+			try:	
+				Dict.open_file = open(path_doc, 'r+') 
 				break
 			except Exception as e:
-				Dict.open_file = open(path_doc, 'w') # En el metodo '__new__', 'self' se remplaza por 'cls' pero fuera de '__new__' se puede volver a usar 'self', tambien se puede remplazar con nombre de clase ('Dict')
+				Dict.open_file = open(path_doc, 'w') 
 				#print('A file was created because the error was presented: ', e)		
 
 	""" insetar palabras"""	
@@ -93,15 +93,15 @@ class Dict:
 		if type(inst) is  str:
 			add_list = []
 			add_list.append(inst) 
-			inst = add_list #si es inst tipo string forzar a que sea tipo lista
+			inst = add_list 
 		elif type(inst) is int:
-			raise NameError('Type(Int) is useless.') # Forzar error en caso de que sea typo entero
+			raise NameError('Type(Int) is useless.') 
 		if type(tran) is  str:
 			add_list = []
 			add_list.append(tran) 
-			tran = add_list #si es inst tipo string forzar a que sea tipo lista
+			tran = add_list 
 		elif type(tran) is int:
-			raise NameError('Type(Int) is useless.')  # Forzar error en caso de que sea typo entero
+			raise NameError('Type(Int) is useless.')  
 		for ii in inst:
 			for jj in tran:
 				if inst.index(ii) == tran.index(jj):
@@ -122,27 +122,27 @@ class Dict:
 						if rep == True: 
 							print('\n-|| Esa expresion ya existe||-\n')
 							break 
-					for i in self.alfabet: # iterndo alfabeto
-						if insert.startswith(i): # comparando si la palabra comienza por la misma letra del alfabeto iterado
-							list_keys = self.dicc.keys() # extrayendo las actuales keys del diccionario / Nota: valores de diccionario se extraen con 'dicc.values()'
-							for j in list_keys: # iterando las keys extraidas
-								if j.startswith(i): # comparando si la key iterada comienza por la misma letra del alfabeto iterado
-									self.count +=1 # iniciando la cuenta de las keys halladas que coinciden con la letra del alfabeto iterado     
-							self.dicc[i+str(self.count)]= insert + sep + translation  # Utilizar count como indice de la letra iterada el alfabeto. 
+					for i in self.alfabet: 
+						if insert.startswith(i): 
+							list_keys = self.dicc.keys() 
+							for j in list_keys: 
+								if j.startswith(i): 
+									self.count +=1      
+							self.dicc[i+str(self.count)]= insert + sep + translation   
 							break
 		return_w = write_file(self.path_doc, abc,n_rep)
 		print ("\n",self.dicc,"\n")
 		open_file.close()
 		if n_rep == False:
 			alfabet_file(self.path_doc) #>>
-		self.count=emptyVars() # Se vacio count desde aca ya que al hacerlo afuera de la clase desde emptyVars abria que hacerlo con la instancia lo que afectaria su importación		
+		self.count=emptyVars() 		
 		return return_w
 
 	"""Consultar palabras""" 	
 	def query_2(self,consult):
 		"""Retorna un diccionario con las lineas que contengan 
 		   coincidencias halladas o retornara 'False' si no encuentra nada"""
-		open_file = open(self.path_doc, 'r') # No hay que usar 'self' en open_file ya que al parecer lo toma como nueva variable inicializada (desvinculada)
+		open_file = open(self.path_doc, 'r') 
 		di_query={}
 		c_qry=0
 		read_f_2 = open_file.read()
@@ -153,7 +153,7 @@ class Dict:
 				di_query[c_qry]=i
 				c_qry+=1
 		if di_query == {}: 
-			return False # Retornara 'False' (int) en caso de no encontrar la busqueda
+			return False 
 		else:
 			return di_query		
 
@@ -165,7 +165,7 @@ class Dict:
 		    se debera colocar select nuevamente en 'False' y el elemento del diccionario elegido ej: key=dict[str(key_element)]"""
 		save=''
 		#print(':::',key)
-		di_corr={}    #Asignar variables en contexto general solo sirve para inicializarlos o para darle sun valor por defecto
+		di_corr={}    
 		c_crr=0
 		open_file = open(self.path_doc, 'r') 
 		read_f_3 = open_file.read()
@@ -177,7 +177,7 @@ class Dict:
 			d_line = key
 			#query_2=consult
 		for i in list_rows_3:
-			#print(query_2, i) #query esta convirtiendo en 'None' al introducir la key
+			#print(query_2, i) 
 			if re.search(query_2, i):
 				save=i
 				if select == True:
@@ -219,21 +219,21 @@ class Dict:
 		list_rows_4 = read_f_4.splitlines()
 		try:
 			if select == True:
-				query_rm = search  # No hace falta declara query_rm fuera del if ya que basta con que if este dentro del contexto para que variable sea general
+				query_rm = search  
 			if select == False:
 				if key == None: query_rm = search
 				else: query_rm = key
 			open_file = open(self.path_doc, 'w')
 			for i in list_rows_4:
 				if select == True:
-					if re.search(query_rm, i): # En caso de hallar la linea a remover cambiara la variable a 'True'
+					if re.search(query_rm, i): 
 						#print('V:',i,re.search(query_rm, i))#>>
 						f = True
 						di[str(c_di)]=i
 						c_di+=1
 				if select == False:
-					if re.search(query_rm,i): f = True # De esta forma siempre que encuentre la busqueda retornara 'True'		
-					if not re.search(query_rm, i): # Rescribira todas las lineas que no contengan la palabra buscada
+					if re.search(query_rm,i): f = True 		
+					if not re.search(query_rm, i): 
 						open_file.write(i + '\n') 
 			if select == True:
 				for i in list_rows_4:
@@ -249,7 +249,7 @@ class Dict:
 
 	"""Imprimir"""	
 	def print_5(self):
-		read_f = self.open_file.read() # se podria usar nombre de clase('Dict') en lugar de 'self'. Nota: por alguna razon si lo lee previamente en __new__ o __init__ aca no lo leeria.
+		read_f = self.open_file.read() 
 		#alfabet_file()
 		return read_f
 
@@ -259,11 +259,16 @@ class Dict:
 	def error_opt(): print('\n Choose Correct Option..')
 
 
+
+
+
+
+
 if __name__ == '__main__':
 
 	while 1:
 
-		test = Dict(r'docu\base_eng.txt') # instanciando objeto de clase Dict.
+		test = Dict(r'docu\base_eng.txt') 
 
 		val = input('Insertar - 1 >> Consulta - 2 >> Corregir - 3 >> Eliminar - 4 >> Imprimir 5>> ')
 		if  val=='1':
