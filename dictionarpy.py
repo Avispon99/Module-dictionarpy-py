@@ -1,3 +1,18 @@
+#!usr/bind/python
+#-*- coding: utf-8 -*-
+
+"""This module allows to create, consult, modify and visualize simple databases in text documents."""
+
+__autor__ = "Jhonatan Leonardo Zuluaga Torres "
+__copyright__ = "Copyright 2018, Jhonatan Zu"
+__credits__ = "Jhonatan Zu"
+__license__ = "GPL"
+__version__ = "1.0.1"
+__maintainer__ = "Jhonatan Zu"
+__email__ = "jhonatan.zero@gmail.com"
+__status__ = "Developer"
+
+
 import re
 
 def no_repeat(word,path_doc):
@@ -52,7 +67,7 @@ def emptyVars():
 
 
 class Dict:
-	""" Variables de Clase """
+	""" set path"""
 	open_file = None
 	dicc = {}	
 	alfabet = ('A','a','B','b','C','c','D','d','E','e','F','f','G','g','H','h','I','i','J','j','K','k',
@@ -85,9 +100,9 @@ class Dict:
 
 	""" insetar palabras"""	
 	def insert_1(self, w_d=None,t_n=None, sep= ' ', n_rep=False, abc=True): 
-		"""Insertar strings, listas compuestas de strings o de otras listas o 
-		   de tuplas pero que a su vez estas tambien esten compuestas de strings.
-		   'sep' establece el separador"""
+		"""Insert strings, lists composed of strings or other lists or
+			of tuples but which in turn are also composed of strings.
+			(sep) set the separator"""
 		inst = w_d 
 		tran = t_n
 		if type(inst) is  str:
@@ -140,8 +155,8 @@ class Dict:
 
 	"""Consultar palabras""" 	
 	def query_2(self,consult):
-		"""Retorna un diccionario con las lineas que contengan 
-		   coincidencias halladas o retornara 'False' si no encuentra nada"""
+		"""Returns a dictionary with the lines containing
+			matches found or (False) will return if nothing is found"""
 		open_file = open(self.path_doc, 'r') 
 		di_query={}
 		c_qry=0
@@ -159,10 +174,10 @@ class Dict:
 
 	"""Corrector"""			
 	def correction_3(self,consult=None, correct=None, select=False, key=None):
-		"""consult establece la palabra a consultar, mientras que correct establece la palabra
-		    a corregir. Si select=False corregira las coincidencias, si select=True retornara un diccionario
-		    con las coincidencias halladas, para corregir una de las coincidencias del diccionario
-		    se debera colocar select nuevamente en 'False' y el elemento del diccionario elegido ej: key=dict[str(key_element)]"""
+		""" consult sets the word to consult, while correct sets the word
+			to correct. If (select = False) will correct the matches, if select = True will return a dictionary
+			with the matches found, to correct one of the dictionary matches
+            select select again in 'False' and the chosen dictionary element example: key = dict [str(key_element)]"""
 		save=''
 		#print(':::',key)
 		di_corr={}    
@@ -205,12 +220,12 @@ class Dict:
 
 	""" Eliminar"""	
 	def remove_4(self, search=None, select=False, key=None):
-		""" Search sera la palabra a buscar, si 'select=False' el metodo retornara un 'True' final eliminando todas las
-			coincidencias, si 'select=True' retornara un diccionario con la coincidencias halladas de las
-			cuales podran ser eliminadas posteriormente usando select en 'False' y estableciendo en 'key' 
-			el diccinario con la clave correspondiente al elemento del diccionario a eliminar ej: key=dict[str(key_element)] 
-			Para cada caso de eliminacion exitora retornara 'True' mientras que para cada caso de no encontrar
-			el elemento a eliminar, retornara 'False' """
+		""" Search will be the word to search, if (select = False) the method will return a final (True) eliminating all
+			matches, if (select = True) will return a dictionary with the matches found from the
+			which can be removed later using select in (False) and setting to (key)
+			the dictionary with the key corresponding to the dictionary element to be deleted example: key = dict [str (key_element)]
+			For each case of successful elimination, (True) will return while for each case of not finding
+			the item to be deleted will return (False) """
 		f = False
 		di ={}
 		c_di=0
@@ -249,6 +264,7 @@ class Dict:
 
 	"""Imprimir"""	
 	def print_5(self):
+		"""Print document"""
 		read_f = self.open_file.read() 
 		#alfabet_file()
 		return read_f
@@ -314,3 +330,5 @@ if __name__ == '__main__':
 
 		elif val=='a':
 			test.abc()
+
+		test = Dict
